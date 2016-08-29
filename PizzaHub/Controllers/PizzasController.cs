@@ -39,7 +39,7 @@ namespace PizzaHub.Controllers
         // GET: Pizzas/Create
         public ActionResult Create()
         {
-            ViewBag.Author = new SelectList(db.AspNetUsers, "Id", "Email");
+          /*  ViewBag.Author = new SelectList(db.AspNetUsers, "Id", "Email"); Това го махам, защото при създаване нямам нужда от списък*/
             return View();
         }
 
@@ -48,10 +48,17 @@ namespace PizzaHub.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name,Author,Text,Date")] Pizza pizza)
+        //Махам Author ot бинда, защото го взимам автоматично от Identity.Name
+        public ActionResult Create([Bind(Include = "ID,Name,Text,Date")] Pizza pizza)
         {
+            //Взимам данни на логнатият потребител
+            ViewBag.Author = db.AspNetUsers.Single(it => it.UserName == User.Identity.Name);
             if (ModelState.IsValid)
             {
+                //Вкарвам в таблицата ID на потребителя
+                pizza.Author = ViewBag.Author.Id;
+                //Винаги да взима текуща дата/час
+                pizza.Date = DateTime.Now;
                 db.Pizzas.Add(pizza);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -73,7 +80,7 @@ namespace PizzaHub.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Author = new SelectList(db.AspNetUsers, "Id", "Email", pizza.Author);
+           /* ViewBag.Author = new SelectList(db.AspNetUsers, "Id", "Email", pizza.Author); */
             return View(pizza);
         }
 
@@ -82,10 +89,16 @@ namespace PizzaHub.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name,Author,Text,Date")] Pizza pizza)
-        {
+        //Махам Author ot бинда, защото го взимам автоматично от Identity.Name
+        public ActionResult Edit([Bind(Include = "ID,Name,Text,Date")] Pizza pizza)
+        { //Взимам данни на логнатият потребител
+            ViewBag.Author = db.AspNetUsers.Single(it => it.UserName == User.Identity.Name);
             if (ModelState.IsValid)
             {
+                //Вкарвам в таблицата ID на потребителя
+                pizza.Author = ViewBag.Author.Id;
+                //Винаги да взима текуща дата/час
+                pizza.Date = DateTime.Now;
                 db.Entry(pizza).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

@@ -3,28 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
+using PizzaHub.Models;
 
 namespace PizzaHub.Controllers
 {
     public class HomeController : Controller
     {
+        private PizzaDbContext db = new PizzaDbContext();
+        //GET: Pizzas
         public ActionResult Index()
         {
-            return View();
+            var pizzas = db.Pizzas.Include(p => p.AspNetUser).OrderByDescending(p => p.Date).Take(5);
+            return View(pizzas.ToList());
         }
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
     }
 }
