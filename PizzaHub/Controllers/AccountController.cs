@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using PizzaHub.Models;
+using PizzaHub.Extensions;
 
 namespace PizzaHub.Controllers
 {
@@ -392,6 +393,7 @@ namespace PizzaHub.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            this.AddNotification("Излязохте от проффила си", NotificationType.INFO);
             return RedirectToAction("Index", "Home");
         }
 

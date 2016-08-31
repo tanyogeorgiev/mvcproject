@@ -55,10 +55,13 @@ html {
   font-family: sans-serif;
   -webkit-text-size-adjust: 100%;
       -ms-text-size-adjust: 100%;
+       position: relative;
+    min-height: 100%;
 }
 
 body {
   margin: 0;
+  min-height:700px;
 }
 
 a:focus {
@@ -311,7 +314,7 @@ html {
 }
 
 body {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Segoe UI", Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 1.428571429;
   color: #333333;
@@ -473,7 +476,7 @@ h6,
 .h4,
 .h5,
 .h6 {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Segoe UI", Helvetica, Arial, sans-serif;
   font-weight: 500;
   line-height: 1.1;
 }
@@ -4194,6 +4197,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 .navbar-brand {
   float: left;
   padding: 15px 15px;
+ 
   font-size: 18px;
   line-height: 20px;
 }
@@ -4239,13 +4243,16 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 
 .navbar-nav {
-  margin: 7.5px -15px;
+ 
+  font-size: 1.2em;
+  padding-top: 50px;
+  text-align: center;
 }
 
 .navbar-nav > li > a {
-  padding-top: 10px;
-  padding-bottom: 10px;
-  line-height: 20px;
+  padding-top: 5px;
+  padding-bottom: 50px;
+  line-height: 10px;
 }
 
 @media (max-width: 767px) {
@@ -4273,11 +4280,12 @@ textarea.input-group-sm > .input-group-btn > .btn {
 
 @media (min-width: 768px) {
   .navbar-nav {
-    float: left;
+    
     margin: 0;
+    
   }
   .navbar-nav > li {
-    float: left;
+  /*float: left;*/
   }
   .navbar-nav > li > a {
     padding-top: 15px;
@@ -4394,7 +4402,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {
-  color: #5e5e5e;
+  color: #777777;
   background-color: transparent;
 }
 
@@ -4408,7 +4416,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
-  color: #333333;
+  color: #cb5d00;
   background-color: transparent;
 }
 
@@ -4501,22 +4509,38 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 
 .navbar-inverse {
-  background-color: #222222;
-  border-color: #080808;
+  background-color: #ededed;
+  width: 300px;
+  height: 100%;
+  min-height:700px;
+  position:absolute;
 }
 
+.navbar-inverse .logo img{
+    width: 250px;
+    position:relative;
+  padding-top:85px;
+  padding-bottom:20px;
+    text-align: center;
+
+}
 .navbar-inverse .navbar-brand {
-  color: #999999;
+  color: rgb(51, 51, 51);
+  font-size: 1.8em;
+  width:300px;
+  text-align: center;
+  
 }
 
 .navbar-inverse .navbar-brand:hover,
 .navbar-inverse .navbar-brand:focus {
-  color: #ffffff;
+  color: #ff9c00;
   background-color: transparent;
 }
 
 .navbar-inverse .navbar-text {
   color: #999999;
+
 }
 
 .navbar-inverse .navbar-nav > li > a {
@@ -4525,7 +4549,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 
 .navbar-inverse .navbar-nav > li > a:hover,
 .navbar-inverse .navbar-nav > li > a:focus {
-  color: #ffffff;
+  color: #d86a00;
   background-color: transparent;
 }
 
