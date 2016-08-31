@@ -26,6 +26,7 @@ namespace PizzaHub.Models
         [StringLength(200)]
         public string Text { get; set; }
 
+        [DataType(DataType.Date)]
         public DateTime? Date { get; set; }
 
         public virtual AspNetUser AspNetUser { get; set; }

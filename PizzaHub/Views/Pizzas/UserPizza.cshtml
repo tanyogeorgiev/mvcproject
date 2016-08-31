@@ -1,0 +1,66 @@
+﻿@model IEnumerable<PizzaHub.Models.Pizza>
+
+@{
+    ViewBag.Title = "Усер";
+}
+
+
+
+<h2>Пиците на: @ViewBag.Author.FullName</h2>
+
+<p>
+    @Html.ActionLink("Създай пица", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Пица
+        </th>
+        @* <th>
+         Информация
+    </th> *@
+        <th>
+            Автор
+        </th>
+        <th>
+            Дата
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.Text)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.AspNetUser.FullName) <br>
+                <span style="font-size:0.8em"><i>(@Html.DisplayFor(modelItem => item.AspNetUser.UserName)) </i></span>
+
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @if (User.Identity.Name != "")
+                {
+                    @Html.ActionLink("Редакция", "Edit", new { id = item.ID }) @:|
+                 }
+
+
+                @Html.ActionLink("Детайли", "Details", new { id = item.ID })
+
+                @if (User.IsInRole("Administrators") || (User.Identity.Name == item.AspNetUser.UserName))
+                {
+                    @:| @Html.ActionLink("Изтрий", "Delete", new { id = item.ID })
+                  }
+            </td>
+        </tr>
+    }
+
+</table>

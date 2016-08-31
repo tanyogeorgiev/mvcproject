@@ -5,7 +5,7 @@
 }
 
 
-<h2>Пица хъП</h2>
+<h2>Пица ХЪП!</h2>
 
 <p>
     @Html.ActionLink("Създай пица", "Create")
@@ -16,8 +16,8 @@
             Пица
         </th>
        @* <th>
-            Информация
-        *@</th>
+         Информация
+    </th> *@
         <th>
             Автор
         </th>
@@ -31,74 +31,85 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+               @Html.DisplayFor(modelItem => item.Name)
             </td>
            @*<td>
                 @Html.DisplayFor(modelItem => item.Text)
             </td>*@
             <td>
-                @Html.DisplayFor(modelItem => item.AspNetUser.FullName)
+                @Html.DisplayFor(modelItem => item.AspNetUser.FullName) <br>
+              <span style="font-size:0.8em"><i>(@Html.DisplayFor(modelItem => item.AspNetUser.UserName)) </i></span>
+                       
             </td>
 
             <td>
                 @Html.DisplayFor(modelItem => item.Date)
             </td>
             <td>
-                @Html.ActionLink("Редакция", "Edit", new { id = item.ID }) |
-                @Html.ActionLink("Детайли", "Details", new { id = item.ID }) |
-                @Html.ActionLink("Изтрий", "Delete", new { id = item.ID })
-            </td>
-        </tr>
-    }
-
-</table>
+              @if (User.Identity.Name != "")
+    {
+                       @Html.ActionLink("Редакция", "Edit", new { id = item.ID }) @:|
+                 }
 
 
+                  @Html.ActionLink("Детайли", "Details", new { id = item.ID })
 
-@*
-    <h2>Index</h2>
-
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.AspNetUser.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Text)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Date)
-            </th>
-            <th></th>
-        </tr>
-
-    @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.AspNetUser.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Text)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-                @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-            </td>
-        </tr>
-    }
+                  @if (User.IsInRole("Administrators") || (User.Identity.Name == item.AspNetUser.UserName))
+                  {
+                     @:| @Html.ActionLink("Изтрий", "Delete", new { id = item.ID })
+                  }
+                </td>
+            </tr>
+        }
 
     </table>
-*@
+
+
+
+    @*
+        <h2>Index</h2>
+
+        <p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.AspNetUser.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Text)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Date)
+                </th>
+                <th></th>
+            </tr>
+
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AspNetUser.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Text)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+                    @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+                </td>
+            </tr>
+        }
+
+        </table>
+            *@

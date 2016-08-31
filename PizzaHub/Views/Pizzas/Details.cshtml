@@ -9,36 +9,12 @@
 
 <div>
     <h4>Пица @Model.Name</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            Име
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-        <dt>
-            Автор
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AspNetUser.FullName)
-        </dd>
-
-        <dt>
-            Дата
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Date)
-        </dd>
-
-    </dl>
+    <div style="font-size:0.8em">
+       <b> Публикувана от</b> <i> @Html.DisplayFor(model => model.AspNetUser.FullName)</i>
+        <b>на</b> <i>@Html.DisplayFor(model => model.Date)</i>
 </div>
+    <hr />
 <h4>Продукти</h4>
-<hr />
 <div>
 @Html.DisplayFor(model => model.Text)
     </div>
@@ -53,7 +29,10 @@
     }
 </ul>*@
 <p>
-    @Html.ActionLink("Редакция", "Edit", new { id = Model.ID }) |
+  @if (User.Identity.Name != "")
+  {
+      @Html.ActionLink("Редакция", "Edit", new { id = Model.ID }) @:|
+ }
     @Html.ActionLink("Назад", "Index")
 </p>
 

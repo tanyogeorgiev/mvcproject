@@ -24,12 +24,17 @@
                     <li>@Html.ActionLink("Начало", "Index", "Home")</li>
                     <li>@Html.ActionLink("Пици", "Index", "Pizzas")</li>
                     <li>@Html.ActionLink("Нова Пица", "Create", "Pizzas")</li>
+                   @if (User.Identity.Name != "")
+                   {
+                     <li>@Html.ActionLink("Моите пици", "UserPizza", "Pizzas")</li>
+                   }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
     </div>
     <div class="container body-content">
+        @Html.Partial("_Notifications")
         @RenderBody()
         <hr />
         <footer>
