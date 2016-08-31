@@ -10,76 +10,127 @@
 <div>
     <h4>Пица @Model.Name</h4>
     <div style="font-size:0.8em">
-       <b> Публикувана от</b> <i> @Html.DisplayFor(model => model.AspNetUser.FullName)</i>
+        <b> Публикувана от</b> <i> @Html.DisplayFor(model => model.AspNetUser.FullName)</i>
         <b>на</b> <i>@Html.DisplayFor(model => model.Date)</i>
+    </div>
 </div>
-    <hr />
+<hr />
 <h4>Продукти</h4>
 <div>
-@Html.DisplayFor(model => model.Text)
-    </div>
+    @Html.DisplayFor(model => model.Text)
+</div>
 <hr />
+
+
+<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+    <h3 class="panel-title">Коментари: <span class="badge">@ViewBag.count</span></h3>
+</button>
+<div class="collapse" id="collapseExample">
+    <div class="well">
+
+      @foreach (var item in ViewBag.Comments)
+      {
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><b>@item.AuthorName</b> - <i>@item.Date</i></h3>
+                </div>
+                <div class="panel-body">
+                    <p>  @item.Text; </p>
+
+                </div>
+            </div>
+        }
+    </div>
+</div> <hr />
 @* Засега ще взима текста като продукти, по нататък ще направя функционалност да ги взима от базата
-    <ul>
-    @foreach (var item in Model.Products)
-    {
+        <ul>
+        @foreach (var item in Model.Products)
+        {
 
-        <li>   @item.Name </li>
+            <li>   @item.Name </li>
 
-    }
-</ul>*@
+        }
+    </ul>*@
 <p>
-  @if (User.Identity.Name != "")
-  {
-      @Html.ActionLink("Редакция", "Edit", new { id = Model.ID }) @:|
+    @if (User.Identity.Name != "")
+    {
+        @Html.ActionLink("Редакция", "Edit", new { id = Model.ID }) @:|
  }
     @Html.ActionLink("Назад", "Index")
 </p>
+@*@Html.Partial("_comment", new PizzaHub.Models.Comment());
+    @*
+        <div class="well">
+
+            <h4>Leave a comment</h4>
+
+            <form  class="clearfix">
+
+                <div class="col-md-6 form-group">
+                    <label class="sr-only" for="name">Name</label>
+                    <input type="text" class="form-control" id="name" placeholder="Name">
+                </div>
+
+                <div class="col-md-6 form-group">
+                    <label class="sr-only" for="email">Email</label>
+                    <input type="email" class="form-control" id="email" placeholder="Email">
+                </div>
+
+                <div class="col-md-12 form-group">
+                    <label class="sr-only" for="email">Comment</label>
+                    <textarea class="form-control" id="comment" placeholder="Comment"></textarea>
+                </div>
+
+                <div class="col-md-12 form-group text-right">
+                    <button type="button" class="btn btn-primary">Submit</button>
+                </div>
+
+            </form>
+        </div>
 
 
-@*
-    <h2>Details</h2>
+            <h2>Details</h2>
 
-    <div>
-        <h4>Pizza</h4>
-        <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.AspNetUser.Email)
-            </dt>
+            <div>
+                <h4>Pizza</h4>
+                <hr />
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.AspNetUser.Email)
+                    </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.AspNetUser.Email)
-            </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.AspNetUser.Email)
+                    </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Name)
-            </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Name)
-            </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Name)
+                    </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Text)
-            </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Text)
+                    </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Text)
-            </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Text)
+                    </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Date)
-            </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Date)
+                    </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Date)
-            </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Date)
+                    </dd>
 
-        </dl>
-    </div>
-    <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-        @Html.ActionLink("Back to List", "Index")
-    </p>
+                </dl>
+            </div>
+            <p>
+                @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+                @Html.ActionLink("Back to List", "Index")
+            </p>
 *@

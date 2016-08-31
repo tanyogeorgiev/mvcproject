@@ -4,22 +4,29 @@
 
 @model IEnumerable<PizzaHub.Models.Pizza>
 
-    <div class="jumbotron">
-        <h1>ASP.NET</h1>
-        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
+   @* <div class="jumbotron">
+        <h1 c>Пица ХЪБ!</h1>
+        <p class="lead">Вашите пици, Вашите рецепти! </p>
         <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-    </div>
+    </div> *@
+
 
 @foreach (var pizza in Model)
 {
     <div class="row">
         <div class="post col-md-6">
-            <h2>@pizza.Name</h2>
-            <div>
-                Публикувана на<i>@pizza.Date</i>
-                от <i> @pizza.AspNetUser.FullName</i>
+            <div id="homewell" class="well">
+                <h2><a href="\Pizzas\Details\@pizza.ID">@pizza.Name </a></h2>
+                <div>
+                    
+                    Публикувана на <i>@pizza.Date</i>
+                    от <i> @pizza.AspNetUser.FullName</i>
+                </div>
+                <button class="btn btn-home" type="button" >
+                    <h3 class="panel-title"><a href="\Pizzas\Details\@pizza.ID">Детайли </a></h3>
+                </button>
+</div>
             </div>
-           </div>
     </div>
 
 

@@ -14,6 +14,7 @@ namespace PizzaHub.Models
         [Required]
         public string Text { get; set; }
 
+        
         public int PostID { get; set; }
 
         [StringLength(128)]
@@ -26,5 +27,8 @@ namespace PizzaHub.Models
         public DateTime? Date { get; set; }
 
         public virtual AspNetUser AspNetUser { get; set; }
+
+        [ForeignKey("PostID")]
+        public Pizza Pizza { get; set; }
     }
 }

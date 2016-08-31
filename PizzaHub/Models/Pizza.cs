@@ -23,7 +23,7 @@ namespace PizzaHub.Models
         [StringLength(128)]
         public string Author { get; set; }
 
-        [StringLength(200)]
+        
         public string Text { get; set; }
 
         [DataType(DataType.Date)]
@@ -33,5 +33,7 @@ namespace PizzaHub.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Product> Products { get; set; }
+
+        public ICollection<Comment> Comments { get; set; } 
     }
 }

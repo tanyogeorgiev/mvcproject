@@ -8,32 +8,41 @@
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
+
 <body>
+    <div class="img-header">
+
+    </div>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
+            <div class="logo">
+                <a href="#"><img src="http://tg.cloudvps.bg/images/pizza_hub.svg" width="10"></a>
+            </div>
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
-                </button>
+                </button><br>
                 @Html.ActionLink("Pizza HUB!", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Начало", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Пици", "Index", "Pizzas")</li>
+                    <li>@Html.ActionLink("Начало", "Index", "Home")</li> 
+                    <li>@Html.ActionLink("Пици", "Index", "Pizzas")</li> 
                     <li>@Html.ActionLink("Нова Пица", "Create", "Pizzas")</li>
                    @if (User.Identity.Name != "")
                    {
-                     <li>@Html.ActionLink("Моите пици", "UserPizza", "Pizzas")</li>
-                   }
+                     <li>@Html.ActionLink("Моите пици","UserPizza","Pizzas")</li>
+                     }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
     </div>
-    <div class="container body-content">
+   
+
+    <div class="container newbody-content">
         @Html.Partial("_Notifications")
         @RenderBody()
         <hr />

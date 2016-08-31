@@ -19,6 +19,7 @@ namespace PizzaHub.Controllers
         public ActionResult Index()
         {
             var pizzas = db.Pizzas.Include(p => p.AspNetUser);
+           
             return View(pizzas.ToList());
         }
 
@@ -35,6 +36,8 @@ namespace PizzaHub.Controllers
             {
                 return HttpNotFound();
             }
+          ViewBag.comments = db.Comments.Where(c=> c.PostID==id);
+            ViewBag.count = db.Comments.Where(c => c.PostID == id).Count();
             return View(pizza);
         }
 
@@ -86,6 +89,7 @@ namespace PizzaHub.Controllers
                 return HttpNotFound();
             }
             ViewBag.check = db.AspNetUsers.Single(it => it.UserName == User.Identity.Name);
+            
             if (User.IsInRole("Administrators") || (pizza.Author == ViewBag.check.Id))
             {
                 return View(pizza);
@@ -104,15 +108,17 @@ namespace PizzaHub.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         //Махам Author ot бинда, защото го взимам автоматично от Identity.Name
-        public ActionResult Edit([Bind(Include = "ID,Name,Text,Date")] Pizza pizza)
+        public ActionResult Edit([Bind(Include = "ID,Name,Text")] Pizza pizza)
         { //Взимам данни на логнатият потребител
             ViewBag.Author = db.AspNetUsers.Single(it => it.UserName == User.Identity.Name);
             if (ModelState.IsValid)
             {
                 //Вкарвам в таблицата ID на потребителя
                 pizza.Author = ViewBag.Author.Id;
+                pizza.Date = DateTime.Now;
+                    
                 //Винаги да взима текуща дата/час
-               
+               //  pizza.Date = DateTime.Now; 
                 db.Entry(pizza).State = EntityState.Modified;
                 db.SaveChanges();
                 this.AddNotification("Успешно редактирахте пица.", NotificationType.INFO);
@@ -146,7 +152,7 @@ namespace PizzaHub.Controllers
             Pizza pizza = db.Pizzas.Find(id);
             db.Pizzas.Remove(pizza);
             db.SaveChanges();
-            this.AddNotification("Успешно изтрихте пост.", NotificationType.INFO);
+           
             return RedirectToAction("Index");
         }
 
@@ -168,5 +174,32 @@ namespace PizzaHub.Controllers
             var pizzas = db.Pizzas.Include(p => p.AspNetUser).Where(e => e.Author == curr);
             return View(pizzas.ToList());
         }
+        public ActionResult CreateComment()
+        {
+            return RedirectToAction("Index");
+        }
+       [HttpPost]
+        [ValidateAntiForgeryToken]
+        //Махам Author ot бинда, защото го взимам автоматично от Identity.Name
+        public ActionResult CreateComment([Bind(Include = "Text,AuthorName")] Comment comment)
+        {
+            //Взимам данни на логнатият потребител
+            ViewBag.Author = db.AspNetUsers.Single(it => it.UserName == User.Identity.Name);
+            if (ModelState.IsValid)
+            {
+                //Вкарвам в таблицата ID на потребителя
+                comment.AuthorID = ViewBag.Author.Id;
+                //Винаги да взима текуща дата/час
+                comment.Date = DateTime.Now;
+                comment.PostID = 2;
+                db.Comments.Add(comment);
+                db.SaveChanges();
+                this.AddNotification("Успешно написахте коментар", NotificationType.INFO);
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction("Index");
+
+        }
+
     }
 }
