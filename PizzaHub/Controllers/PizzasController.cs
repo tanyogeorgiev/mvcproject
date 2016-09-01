@@ -64,7 +64,12 @@ namespace PizzaHub.Controllers
                 //Вкарвам в таблицата ID на потребителя
                 pizza.Author = ViewBag.Author.Id;
                 //Винаги да взима текуща дата/час
-                pizza.Date = DateTime.Now;
+                // pizza.Date = DateTime.Now;
+                var data = Request.Form["Date"];
+                if (data == "")
+                {
+                    pizza.Date = DateTime.Now;
+                }
                 db.Pizzas.Add(pizza);
                 db.SaveChanges();
                 this.AddNotification("Успешно създадохте пица.", NotificationType.INFO);
@@ -106,7 +111,8 @@ namespace PizzaHub.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        [ValidateInput(false)]
+
         //Махам Author ot бинда, защото го взимам автоматично от Identity.Name
         public ActionResult Edit([Bind(Include = "ID,Name,Text")] Pizza pizza)
         { //Взимам данни на логнатият потребител
